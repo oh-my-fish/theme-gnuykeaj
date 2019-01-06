@@ -1,6 +1,6 @@
 # name: gnuykeaj
 # ---------------
-# Based on clearance, which is based off idan. 
+# Based on clearance, which is based off idan.
 # 1 line minimal, beautiful version of clearance.
 # Display the following bits on the left:
 # - Virtualenv name (if applicable, see https://github.com/adambrenecki/virtualfish)
@@ -8,11 +8,11 @@
 # - Git branch and dirty state (if inside a git repo)
 
 function _git_branch_name
-  echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+  echo (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
 end
 
 function _git_is_dirty
-  echo (command git status -s --ignore-submodules=dirty ^/dev/null)
+  echo (command git status -s --ignore-submodules=dirty 2> /dev/null)
 end
 
 function fish_prompt
@@ -26,7 +26,7 @@ function fish_prompt
   set -l normal (set_color normal)
 
   set -l cwd $blue(basename (pwd | sed "s:^$HOME:~:"))
-  
+
   # Display [venvname] if in a virtualenv
   if set -q VIRTUAL_ENV
       echo -n -s (set_color -b cyan black) '[' (basename "$VIRTUAL_ENV") ']' $normal ' '
